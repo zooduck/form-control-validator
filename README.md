@@ -124,13 +124,7 @@ Validation messages for all validity states are automatically provided by the us
 
 They are automatically translated based on your locale settings - which may conflict with site-specific language settings.
 
-Additionally, their content may differ across user agents and devices. For example, in the case of the `patternMismatch` validation message, Chrome uses the message:
-
-`"Please match the format requested."`
-
-whereas Firefox displays:
-
-`"Please match the requested format."`
+Additionally, their content may differ across user agents and devices. For example, in the case of the `patternMismatch` validation message, Chrome displays: *"Please match the format requested."* whereas Firefox opts for: *"Please match the requested format."*
 
 To solve these issues, you can define values for each or any of the validity states, using the `customValidationMessages` property (see below).
 
