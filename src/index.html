@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>form-control-validator</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+      }
+      form {
+        margin: 0 auto;
+        max-width: 768px;
+        padding: 8px;
+      }
+      header h1 {
+        border-bottom: solid 2px;
+        margin-block-end: 0;
+        margin-bottom: 0.5ex;
+        padding-bottom: 0.5ex;
+      }
+      header p {
+        font-size: large;
+        margin-block-start: 0;
+      }
+      .picocss-header {
+        background-color: white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        display: grid;
+        grid-template-columns: 1fr auto;
+        padding: 1rem;
+        position: sticky;
+        top: 0;
+        z-index: 1;
+      }
+      .picocss-header > h1,
+      .picocss-header > p {
+        grid-column: 1;
+      }
+      .picocss-checkbox-fieldset {
+        border: none;
+        text-align: right;
+        margin: 8px;
+      }
+      /* ------------------------------------------ */
+      /* Minimal styles as recommended in README.md */
+      /* ------------------------------------------ */
+      button,
+      input:not([type="checkbox"], [type="radio"]),
+      select,
+      textarea {
+        width: 100%;
+      }
+      [data-validation-message-for] {
+        color: var(--del-color, indianred);
+      }
+      body.use-picocss [data-validation-message-for]:not(:empty) {
+        margin-top: -0.5rem;
+        margin-bottom: 1rem;
+      }
+      body.use-picocss fieldset [data-validation-message-for]:not(:empty) {
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+    </style>
+    <script src="formControlValidator.component.js"></script>
+    <script>
+      const picoCSSStylesheet = new DOMParser().parseFromString(`
+        <link href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css" rel="stylesheet">
+      `, 'text/html').head.firstElementChild;
+      function togglePicoCSS(event) {
+        if (event.target.checked) {
+          document.querySelector('style').insertAdjacentElement('beforebegin', picoCSSStylesheet);
+          document.body.classList.add('use-picocss');
+        } else {
+          picoCSSStylesheet.remove();
+          document.body.classList.remove('use-picocss');
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <header class="picocss-header">
+      <h1>form-control-validator</h1>
+      <p>
+        The <code>&lt;form-control-validator&gt;</code> is a functional web component for
+        normalizing the content and display of validation messages in an html form.
+      </p>
+      <fieldset class="picocss-checkbox-fieldset">
+        <input onchange="togglePicoCSS(event)" role="switch" type="checkbox">
+        Use <a href="https://picocss.com" target="_blank">Pico.css</a>
+      </fieldset>
+    </header>
+    <form>
+      <header>
+        <h1>Example 1</h1>
+        <p>
+          An html <code>&lt;form&gt;</code> with native form control elements. This represents
+          standard behaviour.
+        </p>
+      </header>
+
+      <label for="username-native">Username (user agent validation messages)</label>
+      <input
+        autocomplete="off"
+        name="username-native"
+        id="username-native"
+        minlength="5"
+        pattern="[^_]*_.*"
+        placeholder="Please fill in this field"
+        required>
+
+      <label for="superhero-native" hidden>Favourite Superhero</label>
+      <select name="superhero-native" id="superhero-native" required>
+        <option disabled selected value="">Select Hero</option>
+        <option>Mighty Mouse</option>
+        <option>Bananaman</option>
+      </select>
+
+      <fieldset>
+        <label for="terms-native">
+          <input name="terms-native" id="terms-native" type="checkbox" required role="switch">
+          I have read the terms and conditions
+        </label>
+      </fieldset>
+
+      <label for="noodles-native">Last time you ate noodles for breakfast</label>
+      <input
+        name="noodles-native"
+        id="noodles-native"
+        type="date"
+        required>
+
+      <button type="submit">Submit</button>
+      <button type="reset">Reset</button>
+    </form>
+
+    <form>
+      <header>
+        <h1>Example 2</h1>
+        <p>
+          An html <code>&lt;form&gt;</code> with native form control elements wrapped in
+          <code>&lt;form-control-validator&gt;</code> web components.
+        </p>
+      </header>
+
+      <label for="username">Username (user agent validation messages)</label>
+      <form-control-validator>
+        <input
+          autocomplete="off"
+          name="username"
+          id="username"
+          minlength="5"
+          pattern="[^_]*_.*"
+          placeholder="Please fill in this field"
+          required>
+      </form-control-validator>
+      <div data-validation-message-for="username"></div>
+
+      <label for="username-cvm">Username (custom validation messages)</label>
+      <form-control-validator>
+        <input
+          autocomplete="off"
+          name="username-cvm"
+          id="username-cvm"
+          minlength="5"
+          pattern="[^_]*_.*"
+          placeholder="Please fill in this field"
+          required>
+      </form-control-validator>
+      <div data-validation-message-for="username-cvm"></div>
+
+      <label for="username-uavm-cvm">Username (user agent + custom validation messages)</label>
+      <form-control-validator>
+        <input
+          autocomplete="off"
+          name="username-uavm-cvm"
+          id="username-uavm-cvm"
+          minlength="5"
+          pattern="[^_]*_.*"
+          placeholder="Please fill in this field"
+          required>
+      </form-control-validator>
+      <div data-validation-message-for="username-uavm-cvm"></div>
+
+      <label for="superhero" hidden>Favourite Superhero</label>
+      <form-control-validator>
+        <select name="superhero" id="superhero" required>
+          <option disabled selected value="">Select Hero</option>
+          <option>Mighty Mouse</option>
+          <option>Bananaman</option>
+        </select>
+      </form-control-validator>
+      <div data-validation-message-for="superhero"></div>
+
+      <fieldset>
+        <label for="terms">
+          <form-control-validator>
+            <input name="terms" id="terms" type="checkbox" required role="switch" data-kind="input">
+          </form-control-validator>
+          I have read the terms and conditions
+        </label>
+        <div data-validation-message-for="terms"></div>
+      </fieldset>
+
+      <label for="noodles">Last time you ate noodles for breakfast</label>
+      <form-control-validator>
+        <input
+          name="noodles"
+          id="noodles"
+          type="date"
+          required>
+      </form-control-validator>
+      <div data-validation-message-for="noodles"></div>
+
+      <button type="submit">Submit</button>
+      <button type="reset">Reset</button>
+    </form>
+
+    <script>
+      // -----------------------------------
+      // Custom Validation Message Examples
+      // -----------------------------------
+      document.getElementById('username-cvm').closest('form-control-validator').customValidationMessages = {
+        valueMissing: {
+          message: 'Unlike your head, this field must not be empty.'
+        },
+        tooShort: {
+          message: (formControlElement) => {
+            const { minLength } = formControlElement;
+            const { length: valueLength } = formControlElement.value;
+            const characters = valueLength === 1 ? 'character' : 'characters';
+
+            return `You are currently using ${valueLength} ${characters}. Please lengthen this text to ${minLength} characters or more.`;
+          }
+        },
+        patternMismatch: {
+          message: 'The value must include an underscore.'
+        }
+      }
+      document.getElementById('username-uavm-cvm').closest('form-control-validator').customValidationMessages = {
+        valueMissing: {
+          message: 'Unlike your head, this field must not be empty.',
+          merge: true
+        },
+        tooShort: {
+          message: (formControlElement) => {
+            const { minLength } = formControlElement;
+            const { length: valueLength } = formControlElement.value;
+            const characters = valueLength === 1 ? 'character' : 'characters';
+
+            return `You are currently using ${valueLength} ${characters}. Please lengthen this text to ${minLength} characters or more.`;
+          },
+          merge: true
+        },
+        patternMismatch: {
+          message: 'The value must include an underscore.',
+          merge: true
+        }
+      }
+    </script>
+  </body>
+</html>
