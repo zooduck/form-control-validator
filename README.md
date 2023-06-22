@@ -8,6 +8,45 @@ It provides the following benefits:
 - Normalize validation message display across devices.
 - Normalize / customize validation message content (optional).
 
+## For users with an access token
+
+Add a `.npmrc` file to your project, with the following lines:
+
+```text
+@zooduck:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=YOUR_ACCESS_TOKEN
+```
+
+Install from the command line:
+
+```node
+npm install @zooduck/form-control-validator@latest
+```
+
+Install via package.json:
+
+```json
+"@zooduck/form-control-validator": "latest"
+```
+
+## For users without an access token
+
+Clone or [Download](https://github.com/zooduck/form-control-validator/archive/refs/heads/master.zip) the repository to your machine.
+
+## Import
+
+Import using a module file:
+
+```javascript
+import 'path/to/@zooduck/form-control-validator/dist/index.module.js'
+```
+
+Import using a script tag:
+
+```html
+<script src="path/to/@zooduck/form-control-validator/dist/index.module.js" type="module"></script>
+```
+
 ## Pre-requisites
 
 - Always use semantic HTML.
