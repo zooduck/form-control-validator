@@ -8,6 +8,8 @@ It provides the following benefits:
 - Normalize validation message display across devices.
 - Normalize / customize validation message content (optional).
 
+Visit [Github Pages](https://zooduck.github.io/form-control-validator/) to see this component in action.
+
 ## For users with an access token
 
 Add a `.npmrc` file to your project, with the following lines:
