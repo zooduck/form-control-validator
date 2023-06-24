@@ -8,9 +8,13 @@ It provides the following benefits:
 - Normalize validation message display across devices.
 - Normalize / customize validation message content (optional).
 
+## View the component
+
 Visit [Github Pages](https://zooduck.github.io/form-control-validator/) to see this component in action.
 
-## For users with an access token
+## Installation
+
+### For users with an access token
 
 Add a `.npmrc` file to your project, with the following lines:
 
@@ -31,7 +35,7 @@ Install via package.json:
 "@zooduck/form-control-validator": "latest"
 ```
 
-## For users without an access token
+### For users without an access token
 
 Clone or [Download](https://github.com/zooduck/form-control-validator/archive/refs/heads/master.zip) the repository to your machine.
 
