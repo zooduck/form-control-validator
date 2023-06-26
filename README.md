@@ -1,6 +1,6 @@
 # &lt;form-control-validator&gt;
 
-A functional web component for normalizing form validation message display.
+A functional web component for normalizing form validation message display across devices.
 
 It provides the following benefits:
 
